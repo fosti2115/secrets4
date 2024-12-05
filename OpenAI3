@@ -1,0 +1,35 @@
+import openai
+
+# Replace with your OpenAI API key
+api_key = "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"
+
+# Set the API key
+openai.api_key = api_key
+
+def ask_openai(prompt, model="text-davinci-003", max_tokens=100):
+    """
+    Sends a prompt to the OpenAI API and returns the response.
+
+    Args:
+        prompt (str): The input text prompt for the model.
+        model (str): The model to use (default is "text-davinci-003").
+        max_tokens (int): The maximum number of tokens to include in the response.
+
+    Returns:
+        str: The model's response to the prompt.
+    """
+    try:
+        response = openai.Completion.create(
+            engine=model,
+            prompt=prompt,
+            max_tokens=max_tokens
+        )
+        return response.choices[0].text.strip()
+    except Exception as e:
+        return f"Error: {e}"
+
+# Example usage
+if __name__ == "__main__":
+    user_prompt = input("Enter your prompt: ")
+    result = ask_openai(user_prompt)
+    print("OpenAI Response:", result)
